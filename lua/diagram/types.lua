@@ -11,9 +11,14 @@
 --- renders to a temp file and returns the path
 ---@field render fun(source: string, options?: RenderOptions): string
 
+---@class AsyncRenderer<RenderOptions>
+---@field id string
+--- renders to a temp file and returns the path using a callback
+---@field render fun(source: string, options?: RenderOptions, callback: fun(path: string))
+
 ---@class IntegrationOptions
 ---@field filetypes string[]
----@field renderers Renderer[]
+---@field renderers AsyncRenderer[]
 
 ---@class Integration
 ---@field id string

@@ -51,26 +51,27 @@ local render_buffer = function(bufnr, winnr, integration)
     assert(renderer, "diagram: cannot find renderer with id `" .. diagram.renderer_id .. "`")
 
     local renderer_options = state.renderer_options[renderer.id] or {}
-    local rendered_path = renderer.render(diagram.source, renderer_options)
-    if not rendered_path then return end
+    renderer.render(diagram.source, renderer_options, function(rendered_path)
+      if not rendered_path then return end
 
-    local diagram_col = diagram.range.start_col
-    local diagram_row = diagram.range.start_row
-    if vim.bo[bufnr].filetype == "norg" then
-      diagram_row = diagram_row - 1
-    end
+      local diagram_col = diagram.range.start_col
+      local diagram_row = diagram.range.start_row
+      if vim.bo[bufnr].filetype == "norg" then
+        diagram_row = diagram_row - 1
+      end
 
-    local image = image_nvim.from_file(rendered_path, {
-      buffer = bufnr,
-      window = winnr,
-      with_virtual_padding = true,
-      inline = true,
-      x = diagram_col,
-      y = diagram_row,
-    })
-    diagram.image = image
-    table.insert(state.diagrams, diagram)
-    image:render()
+      local image = image_nvim.from_file(rendered_path, {
+        buffer = bufnr,
+        window = winnr,
+        with_virtual_padding = true,
+        inline = true,
+        x = diagram_col,
+        y = diagram_row,
+      })
+      diagram.image = image
+      table.insert(state.diagrams, diagram)
+      image:render()
+    end)
   end
 end
 

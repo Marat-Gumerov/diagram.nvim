@@ -1,4 +1,4 @@
-local renderers = require("diagram/renderers")
+local renderers = require("diagram/async-renderers")
 local ts_query = require("vim.treesitter.query")
 
 ---@type vim.treesitter.Query
@@ -10,8 +10,8 @@ local M = {
   filetypes = { "markdown" },
   renderers = {
     renderers.mermaid,
-    renderers.plantuml,
-    renderers.d2,
+    --   renderers.plantuml,
+    --   renderers.d2,
   },
 }
 
