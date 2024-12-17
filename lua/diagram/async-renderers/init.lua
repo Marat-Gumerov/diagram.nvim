@@ -1,4 +1,4 @@
-local debounce = require('debounce-renderer')
+local debounce = require('diagram/renderers/debounce-renderer')
 local mermaid = require("diagram/renderers/mermaid")
 -- local plantuml = require("diagram/renderers/plantuml")
 -- local d2 = require("diagram/renderers/d2")
